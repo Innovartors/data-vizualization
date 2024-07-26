@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+<body>
+
+<canvas id="myChart" style="width:100%;max-width:600px"></canvas>
+
+<script>
+const xValues = ["Vietnam", "France", "Canada", "USA", "Japan"];
+const yValues = [55, 49, 44, 24, 30];
+const barColors = [
+  "rgb(255, 183, 71)",
+  "rgb(255, 183, 219)",
+  "rgb(66, 163, 72)",
+  "rgb(255, 34, 83)",
+  "rgb(175, 81, 255)",
+];
+new Chart("myChart", {
+  type: "horizontalBar",
+  data: {
+    labels: xValues,
+    datasets: [{
+      backgroundColor: barColors,
+      data: yValues
+    }]
+  },
+  options: {
+    legend: {display: false},
+    title: {
+      display: true,
+      text: "World Wine Production 2018"
+    }
+  }
+});
+</script>
+
+</body>
+</html>

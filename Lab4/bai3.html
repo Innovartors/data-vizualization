@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<body>
+
+<div id="myPlot" style="width:100%;max-width:700px"></div>
+
+<script>
+// Tao mang chua du lieu cac cot x va y
+const xArray = [55, 49, 44, 24, 15];
+const yArray = ["Italy ", "France ", "Spain ", "USA ", "Argentina "];
+// Tao bien chua du lieu cua do thi, bao gom: toa do truc x, y, kieu bieu do,...
+const data = [{
+  x:xArray,
+  y:yArray,
+  type:"bar",
+  orientation:"h",
+  marker: {color:"rgba(29, 207, 139, 0.8)"}
+}];
+// Tao bien chua title cho layout bieu do
+const layout = {title:"World Wide Wine Production"};
+// In bieu do
+Plotly.newPlot("myPlot", data, layout);
+</script>
+
+</body>
+</html>

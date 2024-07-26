@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+  <title>Dashboard - Wine Production 2018</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden; /* Prevent horizontal scroll */
+    }
+    .sidebar {
+      background-color: #333;
+      color: #fff;
+      width: 200px;
+      height: 100vh;
+      padding: 20px 10px;
+      box-sizing: border-box;
+    }
+    .sidebar a {
+      display: block;
+      padding: 10px 15px;
+      text-decoration: none;
+      color: #fff;
+      margin-bottom: 10px;
+      transition: background-color 0.3s ease;
+      font-family: 'Exo 2', sans-serif; /* Thay đổi font Exo 2 cho các liên kết */
+    }
+    .sidebar a:hover {
+      background-color: #555;
+    }
+    .content {
+      flex: 1;
+      padding: 20px;
+    }
+    .chart-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+      padding: 20px;
+    }
+    .chart-item {
+      width: calc(33.33% - 20px); /* 33.33% width with gap */
+      position: relative;
+      animation: wave 1s infinite ease-in-out alternate; /* Animation */
+    }
+    .chart-item:nth-child(2) {
+      animation-delay: 0.1s; /* Delay animation for second chart */
+    }
+    .chart-item:nth-child(3) {
+      animation-delay: 0.2s; /* Delay animation for third chart */
+    }
+    .large-chart-item {
+      width: calc(50% - 20px); /* 50% width with gap */
+    }
+    .navigation {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+    .navigation a {
+      padding: 10px 20px;
+      background-color: #555;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 5px;
+      margin: 0 10px;
+      transition: background-color 0.3s ease;
+    }
+    .navigation a:hover {
+      background-color: #777;
+    }
+    @keyframes wave {
+      from { transform: translateY(0); }
+      to { transform: translateY(-10px); }
+    }
+  </style>
+</head>
+<body>
+
+<div class="sidebar">
+  <a href="#" onclick="showDashboard()">Dashboard</a>
+  <a href="#" onclick="showChart(1)">Bar Chart</a>
+  <a href="#" onclick="showChart(2)">Pie Chart</a>
+  <a href="#" onclick="showChart(3)">Doughnut Chart</a>
+  <a href="#" onclick="showChart(4)">Line Graphs</a>
+  <a href="#" onclick="showChart(5)">Multiple Lines</a>
+</div>
+
+<div class="content">
+  <div class="navigation">
+    <!-- <a href="#" onclick="showChart(4)">Line Chart 1</a>
+    <a href="#" onclick="showChart(5)">Line Chart 2</a> -->
+  </div>
+
+  <div class="chart-container">
+
+    <!-- Biểu đồ 1: Bar Chart -->
+    <div class="chart-item" id="chart1-container">
+      <canvas id="chart1" style="width:100%;max-width:400px"></canvas>
+    </div>
+
+    <!-- Biểu đồ 2: Pie Chart -->
+    <div class="chart-item" id="chart2-container">
+      <canvas id="chart2" style="width:100%;max-width:400px"></canvas>
+    </div>
+
+    <!-- Biểu đồ 3: Doughnut Chart -->
+    <div class="chart-item" id="chart3-container">
+      <canvas id="chart3" style="width:100%;max-width:400px"></canvas>
+    </div>
+
+    <!-- Biểu đồ 4: Line Chart -->
+    <div class="large-chart-item" id="chart4-container">
+      <canvas id="chart4" style="width:100%;max-width:600px"></canvas>
+    </div>
+
+    <!-- Biểu đồ 5: Line Chart -->
+    <div class="large-chart-item" id="chart5-container">
+      <canvas id="chart5" style="width:100%;max-width:600px"></canvas>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  // Biểu đồ 1: Bar Chart
+  const xValues1 = ["Vietnam", "France", "Canada", "USA", "Japan"];
+  const yValues1 = [55, 49, 44, 24, 30];
+  const barColors1 = [
+    "rgb(255, 183, 71)",
+    "rgb(255, 183, 219)",
+    "rgb(66, 163, 72)",
+    "rgb(255, 34, 83)",
+    "rgb(175, 81, 255)",
+  ];
+  const chart1 = new Chart("chart1", {
+    type: "horizontalBar",
+    data: {
+      labels: xValues1,
+      datasets: [{
+        backgroundColor: barColors1,
+        data: yValues1
+      }]
+    },
+    options: {
+      legend: {display: false},
+      title: {
+        display: true,
+        text: "World Wine Production 2018"
+      }
+    }
+  });
+
+  // Biểu đồ 2: Pie Chart
+  const xValues2 = ["Vietnam", "France", "Japan", "USA", "Argentina"];
+  const yValues2 = [55, 49, 44, 24, 15];
+  const barColors2 = [
+    "#b91d47",
+    "#00aba9",
+    "#2b5797",
+    "#e8c3b9",
+    "#1e7145"
+  ];
+  const chart2 = new Chart("chart2", {
+    type: "pie",
+    data: {
+      labels: xValues2,
+      datasets: [{
+        backgroundColor: barColors2,
+        data: yValues2
+      }]
+    },
+    options: {
+      title: {
+        display: true,
+        text: "World Wide Wine Production 2018"
+      }
+    }
+  });
+
+  // Biểu đồ 3: Doughnut Chart
+  const xValues3 = ["Italy", "France", "Spain", "USA", "Argentina"];
+  const yValues3 = [55, 49, 44, 24, 15];
+  const barColors3 = [
+    "#b91d47",
+    "#00aba9",
+    "#2b5797",
+    "#e8c3b9",
+    "#1e7145"
+  ];
+  const chart3 = new Chart("chart3", {
+    type: "doughnut",
+    data: {
+      labels: xValues3,
+      datasets: [{
+        backgroundColor: barColors3,
+        data: yValues3
+      }]
+    },
+    options: {
+      title: {
+        display: true,
+        text: "World Wide Wine Production 2018"
+      }
+    }
+  });
+
+  // Biểu đồ 4: Line Chart
+  const xValues4 = [50,60,70,80,90,100,110,120,130,140,150];
+  const yValues4 = [7,8,8,9,9,9,10,11,14,14,15];
+  const chart4 = new Chart("chart4", {
+    type: "line",
+    data: {
+      labels: xValues4,
+      datasets: [{
+        fill: false,
+        lineTension: 0,
+        backgroundColor: "rgb(87, 246, 0)",
+        borderColor: "rgb(255, 226, 0)",
+        data: yValues4
+      }]
+    },
+    options: {
+      legend: {display: false},
+      scales: {
+        yAxes: [{ticks: {min: 6, max:16}}],
+      }
+    }
+  });
+
+  // Biểu đồ 5: Line Chart
+  const xValues5 = [100,200,300,400,500,600,700,800,900,1000];
+  const chart5 = new Chart("chart5", {
+    type: "line",
+    data: {
+      labels: xValues5,
+      datasets: [
+        { 
+          data: [860,1140,1060,1060,1070,1110,1330,2210,7830,2478],
+          borderColor: "rgb(255, 95, 0)",
+          fill: false
+        },
+        { 
+          data: [1600,1700,1700,1900,2000,2700,4000,5000,6000,7000],
+          borderColor: "rgba(79, 179, 218, 1)",
+          fill: false
+        },
+        { 
+          data: [300,700,2000,5000,6000,4000,2000,1000,200,100],
+          borderColor: "rgba(255, 71, 83, 1)",
+          fill: false
+        }
+      ]
+    },
+    options: {
+      legend: {display: true},
+      scales: {
+        yAxes: [{ticks: {beginAtZero: true}}],
+      }
+    }
+  });
+
+  // Hàm hiển thị biểu đồ theo index
+  function showChart(index) {
+    const charts = [chart1, chart2, chart3, chart4, chart5];
+    const containers = [
+      document.getElementById('chart1-container'),
+      document.getElementById('chart2-container'),
+      document.getElementById('chart3-container'),
+      document.getElementById('chart4-container'),
+      document.getElementById('chart5-container')
+    ];
+    
+    // Ẩn tất cả các biểu đồ
+    containers.forEach(container => {
+      container.style.display = 'none';
+    });
+
+    // Hiển thị biểu đồ tương ứng
+    containers[index - 1].style.display = 'block';
+    charts[index - 1].update(); // Cập nhật biểu đồ khi chuyển sang tab mới
+  }
+
+  // Hàm hiển thị tất cả các biểu đồ
+  function showDashboard() {
+    const containers = [
+      document.getElementById('chart1-container'),
+      document.getElementById('chart2-container'),
+      document.getElementById('chart3-container'),
+      document.getElementById('chart4-container'),
+      document.getElementById('chart5-container')
+    ];
+
+    // Hiển thị tất cả các biểu đồ
+    containers.forEach(container => {
+      container.style.display = 'block';
+    });
+  }
+</script>
+
+</body>
+</html>
